@@ -1,0 +1,21 @@
+{
+    "file": {
+        "extension": [
+            "xlsx"
+        ]
+    },
+    "sheet": {
+        "target": 0,
+        "headers": {
+            "text": "text",
+            "detail": "detail",
+            "size": "size",
+            "words": "words",
+            "total": "total"
+        }
+    },
+    "words": {
+        "text_line": 20,
+        "detail_line": 10
+    }
+}
