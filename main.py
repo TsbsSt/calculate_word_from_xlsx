@@ -93,18 +93,19 @@ def write_to_workbook(workbook, df, config, src):
     heads = config["sheet"]["headers"].copy()
 
     # input config
+    line = int(config["words"]["line"])
     text_line = int(config["words"]["text_line"])
     detail_line = int(config["words"]["detail_line"])
 
     # 0 division measures
     df[heads["text"]] = df[heads["text"]].fillna("")
     df[heads["detail"]] = df[heads["detail"]].fillna("")
-    df[heads["words"]] = df[heads["words"]].fillna(0).astype(int)
+    df[heads["words"]] = 0 #reset
     df[heads["size"]] = df[heads["size"]].fillna(0).astype(int)
 
     # calculations and inputs
-    df[heads["words"]] += np.ceil(df[heads["text"]].str.len() / text_line).astype(int) * text_line * df[heads["size"]]
-    df[heads["words"]] += np.ceil(df[heads["detail"]].str.len() / detail_line).astype(int) * detail_line * df[heads["size"]]
+    df[heads["words"]] += np.ceil(df[heads["text"]].str.len() / line).astype(int) * text_line * df[heads["size"]]
+    df[heads["words"]] += np.ceil(df[heads["detail"]].str.len() / line).astype(int) * detail_line * df[heads["size"]]
 
     # assign total to the first row, and fill the other cells with None.
     total_sum = df[heads["words"]].sum()
@@ -147,6 +148,7 @@ def make_config(file_name):
             }
         },
         "words": {
+            "line": 20,
             "text_line": 20,
             "detail_line": 10
         }
